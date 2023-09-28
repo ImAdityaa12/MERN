@@ -12,7 +12,7 @@ server.use((req, res, next)=>{
     next()
 })  
 const auth = (req, res, next) =>{
-    if (req.query.password == '123') {
+    if (req.body.password == '123') {
         next()
     }
     else{
