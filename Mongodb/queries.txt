@@ -1,0 +1,14 @@
+show dbs // Shows database
+db.products.find() //Shows collections
+db.products.insertOne({'title':'Iphone'}) // insert data in collection as BSON {}
+db.products.insertMany([{},{}]) insert Many Data at once
+db.products.findOne({"title": "Huawei P30"}) // used to find one item as per criteria 
+db.products.find({'title': {$eq: 'Huawei P30'}}) // Full query (eq = equal, gt= greater than, lt = less than, lte = less than equal to, gte = greater than equal to)
+db.products.find({'rating': {$gt: 4.0}, id: {$gt: 1}}) // AND operation
+db.products.find({$or: [{'rating': {$gt: 4}, id: {$gt: 1}}]}) // OR operation(or, and etc)
+db.products.find({$and: [{'rating': {$gt: 4}, id: {$gt: 1}}]}) // sort the items according to the value (1= ascending, 0 = descending)
+db.products.find({$and: [{'rating': {$gt: 4}, id: {$gt: 1}}]}).sort({'price': 1}).limit(2) // only top 2 items will be visible
+db.products.countDocuments() //Counts the total number of documents
+db.products.countDocuments({'price': {$gt: 300}}) // with criteria
+db.products.find({'price': {$gt: 300}}, {'title': 1})
+// 2nd parameter is projection
