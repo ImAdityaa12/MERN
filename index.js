@@ -1,48 +1,20 @@
-const fs = require('fs')
-const index = fs.readFileSync("index.html", 'utf-8')
-const data = JSON.parse(fs.readFileSync("data.json", 'utf-8'))
-const products = data.products
+const productController = require("./controller/product")
 
 const express = require('express')
-const { get } = require('http')
 const server = express()
 server.use(express.json())
-server.use((req, res, next)=>{
-    console.log(req.method, req.ip);
-    next()
-})  
-const auth = (req, res, next) =>{
-    if (req.query.password == '123') {
-        next()
-    }
-    else{
-        res.sendStatus(401)
-    }
-}
 
-// server.use(auth)
-
-server.get("/",auth, (req, res)=>{
-    res.json({type: "GET"})
-})
-server.put("/", (req, res)=>{
-    res.json({type: "PUT"})
-})
-server.post("/", auth, (req, res)=>{
-    res.json({type: "POST"})
-})
-server.patch("/", (req, res)=>{
-    res.json({type: "PATCH"})
-})
-server.delete("/", (req, res)=>{
-    res.json({type: "Delete"})
-})
-
-// server.get('/', (req, res)=>{
-//     // res.json(data.products)
-//     // res.sendStatus(404)
-//     // res.send("<h1>Hello</h1>")
-// })
+//GET
+server.get("/products/:id", productController.getProductbyId)
+server.get("/products", productController.getAllProduct)
+//PUT
+server.put("/products/:id",productController.updateProduct )
+//POST
+server.post("/products",productController.createProduct)
+//patch
+server.patch("/products/:id", productController.updateDetail)
+//Delete
+server.delete("/products/:id", productController.deleteProduct)
 
 
 
