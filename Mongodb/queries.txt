@@ -10,5 +10,11 @@ db.products.find({$and: [{'rating': {$gt: 4}, id: {$gt: 1}}]}) // sort the items
 db.products.find({$and: [{'rating': {$gt: 4}, id: {$gt: 1}}]}).sort({'price': 1}).limit(2) // only top 2 items will be visible
 db.products.countDocuments() //Counts the total number of documents
 db.products.countDocuments({'price': {$gt: 300}}) // with criteria
-db.products.find({'price': {$gt: 300}}, {'title': 1})
-// 2nd parameter is projection
+db.products.find({'price': {$gt: 300}}, {'title': 1}) // 2nd parameter is projection
+db.products.find({'price': {$gt: 300}}, {'title': 1, 'price': 1}) // add attributes in 2nd parameter
+db.products.updateOne({'id':1}, {$set: {'price':999}}) // Update
+db.products.updateOne({'id':1}, {$set: {'price':999}}, {'upsert': true}) // upset = update + insert
+db.products.updateMany({'id': {$gt: 3}}, {$set: {'price': 9999}}) // update many documents at once (dangeroues)
+db.products.replaceOne({'id':3},{'price': 999}) // replaces the data
+db.products.deleteOne({"_id": ObjectId("651b1426ac81c8c4a759f1d2")}) // deletes the document
+db.products.deleteMany({"price": 999}) //deletes many documents at same time
